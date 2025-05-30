@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquette 6</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Nouvelles animations spectaculaires */
+        @keyframes glowPulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
+                           0 0 40px rgba(255, 59, 59, 0.3),
+                           0 0 60px rgba(255, 59, 59, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.5),
+                           0 0 80px rgba(255, 59, 59, 0.5),
+                           0 0 120px rgba(255, 59, 59, 0.5);
+            }
+        }
+
+        @keyframes cosmic-float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translateY(-15px) rotate(5deg) scale(1.05);
+            }
+            50% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            75% { 
+                transform: translateY(15px) rotate(-5deg) scale(0.95);
+            }
+        }
+
+        @keyframes textShine {
+            0% { 
+                background-position: -500% 0;
+            }
+            100% { 
+                background-position: 500% 0;
+            }
+        }
+
+        @keyframes orbitPath {
+            from { 
+                transform: rotate(0deg) translateX(50px) rotate(0deg);
+            }
+            to { 
+                transform: rotate(360deg) translateX(50px) rotate(-360deg);
+            }
+        }
+
+        .animate-glow {
+            animation: glowPulse 3s infinite;
+        }
+
+        .animate-cosmic-float {
+            animation: cosmic-float 6s infinite ease-in-out;
+        }
+
+        .animate-shine-text {
+            background: linear-gradient(90deg, #ef4444, #ffed4a, #ef4444);
+            background-size: 200% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 5s infinite;
+        }
+
+        .orbit-element {
+            width: 10px;
+            height: 10px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: orbitPath 10s infinite linear;
+        }
+
+        .animate-fadeInUp {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .space-distortion {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .space-distortion > * {
+            transform: translateZ(-50px);
+        }
+
+        body {
+            font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            background-color: #000;
+            color: #fff;
+            font-size: 1.38rem;
+            line-height: 1.8;
+        }
+        .live-badge {
+            display: inline-block;
+            background-color: #cc0000;
+            color: white;
+            font-size: 0.6rem;
+            font-weight: bold;
+            padding: 1px 4px;
+            border-radius: 3px;
+            margin-left: 4px;
+            line-height: 1;
+            vertical-align: middle;
+            animation: pulse-red 2s infinite;
+        }
+        .arrow-icon {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid currentColor;
+            margin-left: 0.25rem;
+            transition: transform 0.3s ease;
+        }
+        .arrow-icon:hover {
+            transform: translateY(2px);
+        }
+        .outbound-link-icon svg {
+            width: 0.75em;
+            height: 0.75em;
+            display: inline-block;
+            margin-left: 0.25em;
+            vertical-align: baseline;
+            transition: transform 0.3s ease;
+        }
+        .outbound-link-icon:hover svg {
+            transform: translate(2px, -2px);
+        }
+
+        /* Animations de pulsation */
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 30px rgba(239, 68, 68, 0.6); }
+        }
+
+        /* Animations de rotation */
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Animations de zoom et scale */
+        @keyframes zoom-in {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.05); }
+        }
+
+        /* Animations de glissement */
+        @keyframes slide-in-bottom {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slide-in-top {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation de parallax */
+        @keyframes parallax-bg {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-50px); }
+        }
+
+        /* Classes d'animation */
+        .animate-pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-rotate-slow {
+            animation: rotate-slow 20s linear infinite;
+        }
+
+        .animate-zoom-hover:hover {
+            animation: zoom-in 0.3s ease forwards;
+        }
+
+        .animate-heartbeat {
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .animate-slide-in-bottom {
+            animation: slide-in-bottom 1s ease forwards;
+            opacity: 0;
+        }
+
+        .animate-slide-in-top {
+            animation: slide-in-top 1s ease forwards;
+            opacity: 0;
+        }
+
+        /* Animations au scroll */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Effets de hover améliorés */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .hover-glow {
+            transition: all 0.3s ease;
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+            transform: scale(1.02);
+        }
+
+        .hover-slide {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hover-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .hover-slide:hover::before {
+            left: 100%;
+        }
+
+        /* Animation de texte typewriter */
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #ef4444; }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #ef4444;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typewriter 4s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        /* Animations de loading/spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation de particules flottantes */
+        @keyframes particle-float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.7;
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+                opacity: 1;
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+                opacity: 0.8;
+            }
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: particle-float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(2) { animation-delay: -1s; }
+        .particle:nth-child(3) { animation-delay: -2s; }
+        .particle:nth-child(4) { animation-delay: -3s; }
+
+        /* Animation de gradient qui bouge */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animated-gradient {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
+
+        /* Animation de révélation de texte */
+        @keyframes reveal-text {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .text-reveal {
+            overflow: hidden;
+        }
+
+        .text-reveal span {
+            display: inline-block;
+            animation: reveal-text 0.8s ease forwards;
+        }
+
+        /* Délais pour les animations en cascade */
+        .delay-75 { animation-delay: 0.075s; }
+        .delay-150 { animation-delay: 0.15s; }
+        .delay-225 { animation-delay: 0.225s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+        .delay-900 { animation-delay: 0.9s; }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-1100 { animation-delay: 1.1s; }
+        .delay-1200 { animation-delay: 1.2s; }
+
+        /* Nouvelles animations spectaculaires */
+        @keyframes progressiveLoad {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+                filter: blur(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .progressive-load {
+            animation: progressiveLoad 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .progressive-load.loaded {
+            opacity: 1;
+        }
+
+        /* Animations renforcées */
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .slide-left {
+            animation: slideInFromLeft 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .slide-right {
+            animation: slideInFromRight 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .pop-in {
+            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            opacity: 0;
+        }
+
+        .float {
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+        /* Animation plus prononcée pour les images au hover */
+        .image-hover {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-hover:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animation de pulse pour les boutons */
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(239, 68, 68, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+    </style>
+    <style>
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease forwards;
+        }
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+        .delay-500 {
+            animation-delay: 0.5s;
+        }
+        .delay-600 {
+            animation-delay: 0.6s;
+        }
+
+        /* New animations */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .animate-fadeInScale {
+            animation: fadeInScale 1s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .animate-slideInLeft {
+            animation: slideInLeft 1s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .animate-slideInRight {
+            animation: slideInRight 1s ease forwards;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <div class="relative min-h-screen overflow-hidden">
+        <video autoplay loop muted playsinline class="absolute z-0 w-full h-full object-cover">
+            <source src="images/msr-site-banner-1080-11-15-22.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="absolute inset-0 z-10 bg-black bg-opacity-50"></div>
+        
+        <!-- Conteneur de particules -->
+        <div class="particle-container absolute inset-0 z-15 pointer-events-none"></div>
+
+        <div class="relative z-20 flex flex-col min-h-screen">
+
+            <header class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-sm animate-slideInDown nasa-header">
+                <nav class="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <button class="text-sm font-semibold hover:text-gray-300 flex items-center animate-fadeInScale delay-200">
+                            Explore <span class="arrow-icon"></span>
+                        </button>
+                        <div class="relative hidden md:block animate-fadeInScale delay-300">
+                            <input type="search" placeholder="Search" class="bg-gray-800 border border-gray-700 rounded-md py-1.5 pl-8 pr-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 w-48 lg:w-64">
+                            <svg class="w-4 h-4 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <a href="#" aria-label="NASA Home">
+                            <img src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" alt="NASA Logo" class="h-10 sm:h-12">
+                        </a>
+                    </div>
+
+                    <div class="flex items-center space-x-3 sm:space-x-4 text-sm font-semibold">
+                        <a href="#" class="hover:text-gray-300 flex items-center">News & Events <span class="arrow-icon"></span></a>
+                        <a href="#" class="hover:text-gray-300 flex items-center">Multimedia <span class="arrow-icon"></span></a>
+                        <a href="#" class="hover:text-gray-300 flex items-center">NASA+<span class="live-badge">LIVE</span></a>
+                    </div>
+                </nav>
+            </header>
+
+            <main class="flex-grow flex flex-col items-start justify-center text-left px-4 pt-16 animate-fadeInUp delay-400 space-distortion">
+                <div class="max-w-xl lg:max-w-2xl relative">
+                    <!-- Éléments orbitaux -->
+                    <div class="orbit-element" style="animation-delay: 0s"></div>
+                    <div class="orbit-element" style="animation-delay: -2s"></div>
+                    <div class="orbit-element" style="animation-delay: -4s"></div>
+                    
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-4 animate-shine-text whitespace-nowrap">
+                        For the Benefit of All
+                    </h1>
+                    <p class="text-base sm:text-lg md:text-xl mb-8 text-gray-200 animate-cosmic-float">
+                        NASA investigates the unknown in air and space, innovates for the benefit of
+                        humanity, and inspires the world through discovery.
+                    </p>
+                    <a href="#" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-md text-lg transition-colors animate-glow">
+                        NASA Missions
+                    </a>
+                </div>
+            </main>
+
+            <footer class="w-full py-6 px-4 sm:px-6 lg:px-8 bg-black/30 backdrop-blur-sm mt-auto animate-fadeInUp delay-800">
+                <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Crewed Lunar Flyby</p>
+                        <a href="#" class="text-base sm:text-lg font-semibold hover:underline flex items-center animate-slideInLeft delay-900">
+                            Artemis II
+                            <span class="outbound-link-icon">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="external-link w-4 h-4"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path></svg>
+                            </span>
+                        </a>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Planetary Defense</p>
+                        <a href="#" class="text-base sm:text-lg font-semibold hover:underline flex items-center animate-fadeInScale delay-1000">
+                            NEO Surveyor
+                            <span class="outbound-link-icon">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="external-link w-4 h-4"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path></svg>
+                            </span>
+                        </a>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Cosmic Wonders</p>
+                        <a href="#" class="text-base sm:text-lg font-semibold hover:underline flex items-center animate-slideInRight delay-1100">
+                            Nancy Grace Roman Space Telescope
+                            <span class="outbound-link-icon">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="external-link w-4 h-4"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path></svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <section class="bg-white py-12 lg:py-20 text-neutral-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-between items-center mb-8">
+                <h2 class="text-4xl font-bold">Featured News</h2>
+                <a href="#" class="text-sm font-semibold text-red-600 hover:text-red-700 flex items-center">
+                    Recently Published
+                    <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-12 gap-6 mb-12">
+                <!-- Article principal -->
+                <div class="col-span-12 lg:col-span-5">
+                    <a href="#" class="block group">
+                        <div class="relative h-[480px] overflow-hidden rounded-lg">
+                            <div class="absolute top-4 left-4 z-10 flex items-center space-x-2">
+                                <span class="bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">BLOG</span>
+                                <span class="bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">3 MIN READ</span>
+                            </div>
+                            <img src="images/1.jpg" alt="Crew works on spacesuits" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <h3 class="text-2xl font-bold text-white mb-2">Crew Works on Spacesuits, Life Support as Human Research Continues</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Article secondaire -->
+                <div class="col-span-12 lg:col-span-4">
+                    <a href="#" class="block group">
+                        <div class="relative h-[480px] overflow-hidden rounded-lg">
+                            <div class="absolute top-4 left-4 z-10 flex items-center space-x-2">
+                                <span class="bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">ARTICLE</span>
+                                <span class="bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">4 MIN READ</span>
+                            </div>
+                            <img src="images/M1.jpg" alt="NASA's MAVEN" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <h3 class="text-xl font-bold text-white mb-2">NASA's MAVEN Makes First Observation of Atmospheric Sputtering at Mars</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articles plus petits -->
+                <div class="col-span-12 lg:col-span-3 flex flex-col gap-6">
+                    <a href="#" class="block group">
+                        <div class="relative h-[230px] overflow-hidden rounded-lg">
+                            <div class="absolute top-4 left-4 z-10 flex items-center space-x-2">
+                                <span class="bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">BLOG</span>
+                                <span class="bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">2 MIN READ</span>
+                            </div>
+                            <img src="images/M4.webp" alt="NASA Marks Milestones" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-4">
+                                <h3 class="text-lg font-bold text-white">NASA Marks Milestones for Artemis III Orion Spacecraft at Kennedy</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="block group">
+                        <div class="relative h-[230px] overflow-hidden rounded-lg">
+                            <div class="absolute top-4 left-4 z-10 flex items-center space-x-2">
+                                <span class="bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">BLOG</span>
+                                <span class="bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">5 MIN READ</span>
+                            </div>
+                            <img src="images/M3.webp" alt="Eccentric Star" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-4">
+                                <h3 class="text-lg font-bold text-white">Eccentric 'Star' Defies Easy Explanation, NASA's Chandra Finds</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Articles miniatures -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="flex items-start space-x-4">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/5.webp" alt="NASA's Psyche" class="w-20 h-20 rounded-full object-cover">
+                    </a>
+                    <div>
+                        <span class="text-xs text-gray-500 font-medium">2 MIN READ</span>
+                        <h4 class="font-semibold text-base mb-1 hover:text-red-600">NASA's Psyche Spacecraft Using Backup Plan for Mars</h4>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg> BLOG</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/6.webp" alt="NASA's EZIE" class="w-20 h-20 rounded-full object-cover">
+                    </a>
+                    <div>
+                        <span class="text-xs text-gray-500 font-medium">2 MIN READ</span>
+                        <h4 class="font-semibold text-base mb-1 hover:text-red-600">NASA's EZIE Begins Study of Auroral Electrojets</h4>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg> BLOG</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/7.jpg" alt="Planetary Cores" class="w-20 h-20 rounded-full object-cover">
+                    </a>
+                    <div>
+                        <span class="text-xs text-gray-500 font-medium">5 MIN READ</span>
+                        <h4 class="font-semibold text-base mb-1 hover:text-red-600">Percolating Clues: NASA Models New Way to Build Planetary Cores</h4>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg> ARTICLE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="images/8.jpg" alt="NASA's Dragonfly" class="w-20 h-20 rounded-full object-cover">
+                    </a>
+                    <div>
+                        <span class="text-xs text-gray-500 font-medium">6 MIN READ</span>
+                        <h4 class="font-semibold text-base mb-1 hover:text-red-600">NASA's Dragonfly Mission Sets Sights on Titan's Mysteries</h4>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg> ARTICLE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<section class="relative text-white overflow-hidden animate-fadeInUp delay-100">
+    <img src="images/M5.webp"
+         alt="Drones flying over a city with a whale tail sculpture and buildings under a partly cloudy sky"
+         class="absolute inset-0 w-full h-full object-cover z-0">
+
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent/30 z-10"></div>
+
+    <div class="relative z-20 min-h-[500px] md:min-h-[600px] lg:min-h-[680px] flex items-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+                <h2 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                    Adaptable<br>Airspace
+                </h2>
+                <p class="text-base sm:text-lg text-gray-200 mb-8 sm:mb-10 leading-relaxed">
+                    In the latest episode of the "Small Steps, Giant Leaps" podcast, hear how
+                    NASA's Air Traffic Management eXploration project will transform the air
+                    traffic management system to safely accommodate the growing demand of
+                    new vehicles.
+                </p>
+                <a href="#" class="text-lg sm:text-xl font-semibold text-white hover:text-gray-300 flex items-center group">
+                    Listen to the Podcast
+                    <span class="text-red-500 ml-2 transform transition-transform duration-200 ease-in-out group-hover:translate-x-1">
+                        <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path></svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-white py-12 lg:py-16 animate-fadeInUp delay-200">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap justify-between items-center mb-8 sm:mb-10">
+            <h2 class="text-3xl lg:text-4xl font-bold text-neutral-800 mr-4 mb-2 sm:mb-0">NASA Multimedia</h2>
+            <a href="#" class="text-sm font-semibold text-neutral-700 hover:text-red-600 flex items-center whitespace-nowrap group">
+                Discover More
+                <span class="ml-1.5 text-red-500 group-hover:text-red-600 transition-colors">
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+                    </svg>
+                </span>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <a href="#" class="group relative block overflow-hidden rounded-lg shadow-md h-[360px] md:h-[420px] hover-lift hover-glow scroll-animate">
+                <img src="images/M2.webp" alt="NASA Images - Footprint on the moon" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-5 transition-all duration-300 group-hover:from-black/90">
+                    <h3 class="text-xl md:text-2xl font-bold text-white flex items-center">
+                        NASA Images
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white ml-2 transform group-hover:scale-110 transition-transform duration-200 ease-in-out animate-pulse-glow">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </span>
+                    </h3>
+                </div>
+            </a>
+
+            <a href="#" class="group relative block overflow-hidden rounded-lg shadow-md h-[360px] md:h-[420px] hover-lift hover-glow scroll-animate delay-200">
+                <img src="images/M6.jpg" alt="Podcasts - Two women speaking on a stage" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-5 transition-all duration-300 group-hover:from-black/90">
+                    <h3 class="text-xl md:text-2xl font-bold text-white flex items-center">
+                        Podcasts
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white ml-2 transform group-hover:scale-110 transition-transform duration-200 ease-in-out animate-pulse-glow">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </span>
+                    </h3>
+                </div>
+            </a>
+
+            <a href="#" class="group relative block overflow-hidden rounded-lg shadow-md h-[360px] md:h-[420px] hover-lift hover-glow scroll-animate delay-400">
+                <img src="images/M7.webp" alt="Mobile and Desktop Apps - Person using AR headset" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-5 transition-all duration-300 group-hover:from-black/90">
+                    <h3 class="text-xl md:text-2xl font-bold text-white flex items-center">
+                        Mobile and Desktop Apps
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white ml-2 transform group-hover:scale-110 transition-transform duration-200 ease-in-out animate-pulse-glow">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </span>
+                    </h3>
+                </div>
+            </a>
+
+            <a href="#" class="group relative block overflow-hidden rounded-lg shadow-md h-[360px] md:h-[420px] hover-lift hover-glow scroll-animate delay-600">
+                <img src="images/M8.png" alt="Eyes - Satellites and planets visualization" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-5 transition-all duration-300 group-hover:from-black/90">
+                    <h3 class="text-xl md:text-2xl font-bold text-white flex items-center">
+                        Eyes
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white ml-2 transform group-hover:scale-110 transition-transform duration-200 ease-in-out animate-pulse-glow">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </span>
+                    </h3>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-white py-12 lg:py-20 text-neutral-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+            <div class="lg:col-span-4">
+                <p class="text-xs font-semibold uppercase text-neutral-500 tracking-wider mb-1">Today</p>
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">Image Of The Day</h2>
+
+                <h3 class="text-xl font-semibold text-neutral-700 mb-3">
+                    45 Years Ago: NASA Announces Ninth Astronaut Group
+                </h3>
+                <p class="text-sm text-neutral-600 leading-relaxed mb-6">
+                    Sixteen of 19 astronaut candidates named on May 29, 1980, and two European trainees as payload specialists pose for photographers in the briefing room in the public affairs facility at NASA's Johnson Space Center in Houston.
+                </p>
+
+                <div class="flex flex-col space-y-4">
+                    <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+                        Browse Image Archive 
+                    </a>
+                    <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"></a>
+                        View image 
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="bg-neutral-100 rounded-lg overflow-hidden aspect-video">
+                    <img src="images/M9.webp" alt="NASA's ninth astronaut group posing in 1980" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white py-12 lg:py-16 text-neutral-800 animate-fadeInUp delay-500">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-neutral-800 mb-12">More NASA Images</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- NASA Spacewalkers Gallery -->
+            <a href="#" class="group">
+                <div class="relative aspect-[4/3] overflow-hidden rounded-lg mb-4">
+                    <img src="images/M10.webp" alt="NASA Spacewalker" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-xl font-semibold text-neutral-800">NASA Spacewalkers Gallery</h3>
+                    <p class="text-sm text-neutral-600">24 IMAGES</p>
+                </div>
+            </a>
+
+            <!-- Astronaut Don Pettit's Photos -->
+            <a href="#" class="group">
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <div class="relative aspect-square overflow-hidden rounded-lg">
+                        <img src="images/M11.webp" alt="Don Pettit Photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="relative aspect-square overflow-hidden rounded-lg">
+                        <img src="images/M12.webp" alt="Don Pettit Photo 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="col-span-2 relative aspect-[2/1] overflow-hidden rounded-lg">
+                        <img src="images/M13.webp" alt="Don Pettit Photo 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-xl font-semibold text-neutral-800">Astronaut Don Pettit's Photos from Space Gallery</h3>
+                    <p class="text-sm text-neutral-600">24 IMAGES</p>
+                </div>
+            </a>
+
+            <!-- Astronaut Matthew Dominick's Photos -->
+            <a href="#" class="group">
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <div class="relative aspect-[2/1] overflow-hidden rounded-lg">
+                        <img src="images/M14.webp" alt="Matthew Dominick Photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="relative aspect-square overflow-hidden rounded-lg">
+                        <img src="images/M15.webp" alt="Matthew Dominick Photo 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="relative aspect-square overflow-hidden rounded-lg">
+                        <img src="images/M16.jpg" alt="Matthew Dominick Photo 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-xl font-semibold text-neutral-800">Astronaut Matthew Dominick's Photos from Space Gallery</h3>
+                    <p class="text-sm text-neutral-600">24 IMAGES</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="relative py-16 lg:py-24 text-white animate-fadeInUp delay-400">
+    <div class="absolute inset-0 z-0">
+        <img src="images/M17.webp" alt="Universe background" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-2xl">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+                Explore the<br>Universe from<br>your Inbox
+            </h2>
+            
+            <p class="text-lg lg:text-xl mb-6 leading-relaxed">
+                Stay up-to-date on the latest news from NASA—from Earth to the Moon, the Solar System and beyond.
+            </p>
+            <p class="text-sm text-neutral-300">
+                We will never share your email address. <a href="#" class="underline hover:text-white">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white py-12 lg:py-20 text-neutral-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div class="lg:col-span-5">
+                <p class="text-xs font-semibold uppercase text-neutral-500 tracking-wider mb-1">Earth Science</p>
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">Earth Information Center</h2>
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4">Explore our changing planet</h3>
+                
+                <p class="text-sm text-neutral-600 leading-relaxed mb-6">
+                    For more than 50 years, NASA satellites have provided data on Earth's land, water, air, temperature, and climate. NASA's Earth Information Center allows visitors to see how our planet is changing in six key areas: sea level rise and coastal impacts, health and air quality, wildfires, greenhouse gases, sustainable energy, and agriculture.
+                </p>
+                
+                <div class="flex flex-col space-y-4">
+                    <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+                        Learn more about Earth Science &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="bg-neutral-100 rounded-lg overflow-hidden mb-4">
+                    <img src="images/M18.webp" alt="The St. Clair River from space" class="w-full h-auto">
+                </div>
+                <p class="text-xs text-neutral-500">
+                    The St. Clair River flows into the Freshwater Lake St. Clair and separates the American state of Michigan (top) from the Canadian province of Ontario (bottom) in this photograph from the International Space Station as it orbited 260 miles above.
+                </p>
+                <p class="text-xs text-neutral-400 mt-1">NASA</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white py-12 lg:py-16 text-white animate-fadeInUp delay-600">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl lg:text-3xl font-bold mb-8 text-neutral-800">More Topics from NASA</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <a href="#" class="group relative block aspect-square rounded-lg overflow-hidden">
+            <img src="images/M19.webp" alt="Missions" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-opacity">
+                <div class="absolute bottom-4 left-4 flex items-center">
+                <h3 class="text-xl font-bold text-white drop-shadow-lg mr-2">Missions</h3>
+                <svg class="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                </div>
+            </div>
+            </a>
+
+            <a href="#" class="group relative block aspect-square rounded-lg overflow-hidden">
+            <img src="images/M20.webp" alt="Humans in Space" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-opacity">
+                <div class="absolute bottom-4 left-4 flex items-center">
+                <h3 class="text-xl font-bold text-white drop-shadow-lg mr-2">Humans in Space</h3>
+                <svg class="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                </div>
+            </div>
+            </a>
+
+            <a href="#" class="group relative block aspect-square rounded-lg overflow-hidden">
+            <img src="images/M21.jpg" alt="Earth" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-opacity">
+                <div class="absolute bottom-4 left-4 flex items-center">
+                <h3 class="text-xl font-bold text-white drop-shadow-lg mr-2">Earth</h3>
+                <svg class="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                </div>
+            </div>
+            </a>
+
+            <a href="#" class="group relative block aspect-square rounded-lg overflow-hidden">
+            <img src="images/M22.webp" alt="Earth" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-opacity">
+                <div class="absolute bottom-4 left-4 flex items-center">
+                <h3 class="text-xl font-bold text-white drop-shadow-lg mr-2">Solar</h3>
+                <svg class="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                </div>
+            </div>
+            </a>
+
+            <a href="#" class="group relative block aspect-square rounded-lg overflow-hidden">
+            <img src="images/M23.webp" alt="Universe" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-opacity">
+                <div class="absolute bottom-4 left-4 flex items-center">
+                <h3 class="text-xl font-bold text-white drop-shadow-lg mr-2">Universe</h3>
+                <svg class="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                </div>
+            </div>
+            </a>
+
+            <a href="#" class="group relative block aspect-square rounded-lg overflow-hidden">
+            <img src="images/M24.webp" alt="Science" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-opacity">
+                <div class="absolute bottom-4 left-4 flex items-center">
+                <h3 class="text-xl font-bold text-white drop-shadow-lg mr-2">Science</h3>
+                <svg class="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"></svg>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                </div>
+            </div>
+            </a>
+
+            <a href="#" class="group relative block aspect-square rounded-lg overflow-hidden">
+            <img src="images/M25.webp" alt="Aeronautics" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-opacity">
+                <div class="absolute bottom-4 left-4 flex items-center">
+                <h3 class="text-xl font-bold text-white drop-shadow-lg mr-2">Aeronautics</h3>
+                <svg class="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                </div>
+            </div>
+            </a>
+
+            <a href="#" class="group relative block aspect-square rounded-lg overflow-hidden">
+            <img src="images/M26.webp" alt="Technology" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-opacity">
+                <div class="absolute bottom-4 left-4 flex items-center">
+                <h3 class="text-xl font-bold text-white drop-shadow-lg mr-2">Technology</h3>
+                <svg class="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                </div>
+            </div>
+            </a>
+        </div></a>
+    </div>
+</section>
+<div class="bg-black text-white font-sans">
+  <footer class="p-8 md:p-16">
+    <div class="container mx-auto">
+      <div class="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8">
+        <div class="lg:w-1/3 space-y-6">
+          <div>
+            <img src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" alt="NASA Logo" class="h-16 mb-4">
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold">National Aeronautics and Space Administration</h2>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            NASA explores the unknown in air and space, innovates for the benefit of humanity, and inspires the
+            world through discovery.
+          </p>
+          <div class="space-y-3 pt-2">
+            <a href="#" class="block text-sm text-gray-200 hover:text-white hover:underline">About NASA's Mission</a>
+            <a href="#" class="text-lg font-bold text-white hover:underline flex items-center group">
+              Join Us
+              <span class="ml-2 bg-red-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-base transform transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:w-3/5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 text-sm">
+          <div>
+            <ul class="space-y-3 text-gray-200">
+              <li><a href="#" class="hover:text-white hover:underline">Home</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">News & Events</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">Multimedia</a></li>
+              <li>
+                <a href="#" class="hover:text-white hover:underline flex items-center">
+                  NASA+
+                  <span class="ml-1.5 px-1.5 py-0.5 text-xs font-bold bg-red-600 text-white border border-gray-200 rounded-sm leading-none">LIVE</span>
+                </a>
+              </li>
+              <li><a href="#" class="hover:text-white hover:underline">Missions</a></li>
+            </ul>
+          </div>
+          <div>
+            <ul class="space-y-3 text-gray-200">
+              <li><a href="#" class="hover:text-white hover:underline">Humans in Space</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">Earth</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">The Solar System</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">The Universe</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">Science</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <ul class="space-y-3 text-gray-200">
+              <li><a href="#" class="hover:text-white hover:underline">Aeronautics</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">Technology</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">Learning Resources</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">About NASA</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">NASA en Español</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-semibold mb-4 text-white">Follow NASA</h3>
+            <div class="flex space-x-2 mb-5">
+              <a href="#" aria-label="Follow NASA on Facebook" class="bg-gray-700 hover:bg-gray-600 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12Z" clip-rule="evenodd" /></svg>
+              </a>
+              <a href="#" aria-label="Follow NASA on Instagram" class="bg-gray-700 hover:bg-gray-600 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427A4.902 4.902 0 016.023 3.652a4.902 4.902 0 011.772-1.153c.636-.247 1.363.416 2.427-.465 1.024-.048 1.378.06 3.808-.06zM12 6.865a5.135 5.135 0 100 10.27 5.135 5.135 0 000-10.27zm0 8.468a3.333 3.333 0 110-6.666 3.333 3.333 0 010 6.666zm5.338-9.87a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z" clip-rule="evenodd" /></svg>
+              </a>
+              <a href="#" aria-label="Follow NASA on X" class="bg-gray-700 hover:bg-gray-600 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" aria-label="Follow NASA on YouTube" class="bg-gray-700 hover:bg-gray-600 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.535 2.535 0 01-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.535 2.535 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.535 2.535 0 011.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM9.75 15.5V8.5l6 3.5-6 3.5Z" clip-rule="evenodd" /></svg>
+              </a>
+            </div>
+            <ul class="space-y-3 text-gray-200">
+              <li><a href="#" class="hover:text-white hover:underline">More NASA Social Accounts</a></li>
+              <li><a href="#" class="hover:text-white hover:underline">NASA Newsletters</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-10 md:my-12 border-gray-700">
+
+      <div class="flex flex-wrap gap-x-6 gap-y-3 text-sm text-gray-400 mb-6">
+        <a href="#" class="hover:text-white hover:underline">Sitemap</a>
+        <a href="#" class="hover:text-white hover:underline">For Media</a>
+        <a href="#" class="hover:text-white hover:underline">Privacy Policy</a>
+        <a href="#" class="hover:text-white hover:underline">FOIA</a>
+        <a href="#" class="hover:text-white hover:underline">No FEAR Act</a>
+        <a href="#" class="hover:text-white hover:underline">Office of the IG</a>
+        <a href="#" class="hover:text-white hover:underline">Budget & Annual Reports</a>
+        <a href="#" class="hover:text-white hover:underline">Agency Financial Reports</a>
+        <a href="#" class="hover:text-white hover:underline">Contact NASA</a>
+        <a href="#" class="hover:text-white hover:underline">Accessibility</a>
+      </div>
+
+      <div class="text-xs text-gray-500 space-y-1.5 md:space-y-0 md:flex md:flex-wrap md:gap-x-6 md:gap-y-1">
+        <span>Page Last Updated: <strong class="font-medium text-gray-300">May 29, 2025</strong></span>
+        <span>Page Editor: <strong class="font-medium text-gray-300">Dacia Massengill</strong></span>
+        <span>Responsible NASA Official: <strong class="font-medium text-gray-300">Abigail Bowman</strong></span>
+      </div>
+
+    </div>
+  </footer>
+</div>
+
+<script>
+// Animation au scroll
+function animateOnScroll() {
+    const elements = document.querySelectorAll('.scroll-animate');
+    const windowHeight = window.innerHeight;
+    
+    elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+            element.classList.add('animate');
+        }
+    });
+}
+
+// Ajout d'effet parallax au background vidéo
+function parallaxEffect() {
+    const video = document.querySelector('video');
+    if (video) {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        video.style.transform = `translateY(${rate}px)`;
+    }
+}
+
+// Animation de particules
+function createParticles() {
+    const particleContainer = document.querySelector('.particle-container');
+    if (particleContainer) {
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particleContainer.appendChild(particle);
+        }
+    }
+}
+
+// Animation de compteur
+function animateCounter(element, target, duration = 2000) {
+    let start = 0;
+    const increment = target / (duration / 16);
+    
+    const timer = setInterval(() => {
+        start += increment;
+        element.textContent = Math.floor(start);
+        
+        if (start >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        }
+    }, 16);
+}
+
+// Animation de texte typewriter
+function typewriterEffect(element, text, speed = 100) {
+    let i = 0;
+    element.textContent = '';
+    
+    const timer = setInterval(() => {
+        element.textContent += text.charAt(i);
+        i++;
+        
+        if (i >= text.length) {
+            clearInterval(timer);
+        }
+    }, speed);
+}
+
+// Effet de révélation de texte en cascade
+function revealTextCascade() {
+    const textElements = document.querySelectorAll('.text-reveal');
+    
+    textElements.forEach((element, index) => {
+        const words = element.textContent.split(' ');
+        element.innerHTML = '';
+        
+        words.forEach((word, wordIndex) => {
+            const span = document.createElement('span');
+            span.textContent = word + ' ';
+            span.style.animationDelay = (wordIndex * 0.1) + 's';
+            element.appendChild(span);
+        });
+    });
+}
+
+// Animation de hover pour les cartes
+function enhanceCardHovers() {
+    const cards = document.querySelectorAll('.hover-lift, .hover-glow');
+    
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+}
+
+// Animation de loading pour les images
+function lazyLoadImages() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                img.classList.add('loaded');
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Animation de particules spatiales
+function createSpaceParticles() {
+    const main = document.querySelector('main');
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'space-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 3 + 's';
+        main.appendChild(particle);
+    }
+}
+
+// Initialisation des animations
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajout des classes d'animation aux éléments
+    const sections = document.querySelectorAll('section');
+    sections.forEach((section, index) => {
+        section.classList.add('scroll-animate');
+        section.style.animationDelay = (index * 0.2) + 's';
+    });
+    
+    // Animation initiale
+    animateOnScroll();
+    enhanceCardHovers();
+    revealTextCascade();
+    createParticles();
+    lazyLoadImages();
+    createSpaceParticles();
+    
+    // Animation continue
+    window.addEventListener('scroll', () => {
+        animateOnScroll();
+        parallaxEffect();
+    });
+    
+    // Amélioration des liens avec animations
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transition = 'all 0.3s ease';
+        });
+    });
+    
+    // Animation spéciale pour le logo NASA
+    const logo = document.querySelector('img[alt="NASA Logo"]');
+    if (logo) {
+        logo.classList.add('animate-float');
+    }
+    
+    // Animation pour les boutons
+    const buttons = document.querySelectorAll('.bg-red-600, .bg-red-500');
+    buttons.forEach(button => {
+        button.classList.add('animate-pulse-glow', 'hover-glow');
+    });
+    
+    // Animation pour le badge LIVE
+    const liveBadge = document.querySelector('.live-badge');
+    if (liveBadge) {
+        liveBadge.classList.add('animate-heartbeat');
+    }
+});
+
+// Animation au redimensionnement de fenêtre
+window.addEventListener('resize', () => {
+    animateOnScroll();
+});
+
+// Performance optimization: requestAnimationFrame pour les animations smooth
+let ticking = false;
+
+function updateAnimations() {
+    animateOnScroll();
+    parallaxEffect();
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(updateAnimations);
+        ticking = true;
+    }
+});
+
+// Animation des images avec Intersection Observer
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fadeInScale');
+            observer.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Observer toutes les images
+    document.querySelectorAll('img').forEach(img => {
+        imageObserver.observe(img);
+    });
+    
+    // ... existing code ...
+});
+
+// Fonction améliorée pour les animations au scroll
+function initScrollAnimations() {
+    const animatedElements = document.querySelectorAll('img, h1, h2, h3, p, a.bg-red-600');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Ajoute une animation aléatoire
+                const animations = ['slide-left', 'slide-right', 'pop-in'];
+                const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                entry.target.classList.add(randomAnimation);
+                
+                // Pour les images, ajoute aussi l'effet hover
+                if (entry.target.tagName.toLowerCase() === 'img') {
+                    entry.target.classList.add('image-hover');
+                }
+                
+                // Pour les boutons, ajoute l'effet pulse
+                if (entry.target.classList.contains('bg-red-600')) {
+                    entry.target.classList.add('pulse-glow');
+                }
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px'
+    });
+    
+    animatedElements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
+// Initialisation des animations au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    initScrollAnimations();
+    
+    // Ajoute l'animation de flottement au logo NASA
+    const nasaLogo = document.querySelector('img[alt="NASA Logo"]');
+    if (nasaLogo) {
+        nasaLogo.classList.add('float');
+    }
+});
+</script>
+
+</body>
+</html>
